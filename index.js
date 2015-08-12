@@ -6,14 +6,40 @@ module.exports = {
     init: function() {
     }
     /**
-     * run
+     * Send an email using the internal Dexter SMTP API.
+     * Performs some very basic parameter sanity checking before calling the API.
      *
      * @param {WFDataStep} step Accessor for the configuration for the step using this module.  Use step.input('{key}') to retrieve input data.
      * @param {WFDataParser} dexter Container for all data used in this workflow.
      */
     , run: function(step, dexter) {
-        var results = { foo: 'bar' };
-        //Call this.complete with the module's output.  If there's an error, call this.fail(message) instead.
-        this.complete(results);
+        var to, from, subject, bodyText, bodyHtml, cc, bcc
+            ;
+        if((to = step.input('to', null)) === null) {
+            return this.fail('"to" field is required');
+        }
+        if((from = step.input('from', null)) === null) {
+            return this.fail('"from" field is required');
+        }
+        if((subject = step.input('subject', null)) === null) {
+            return this.fail('"subject" field is required');
+        }
+        if(
+            (bodyText = step.input('text', null)) === null
+            && (bodyHtml = step.input('html', null)) === null
+        ) {
+           return this.fail('Either "text" (for a text-based email), "html" (for an html-based email), or both are required');
+        } 
+        cc = step.input('cc', null);
+        cc = step.input('bcc', null);
+        this.complete({
+            to: to
+            , from: from
+            , subject: subject
+            , text: bodyText
+            , html: bodyHtml
+            , cc: cc
+            , bcc: bcc
+        });
     }
 };

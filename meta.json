@@ -1,28 +1,36 @@
-/*
- * Metadata describing the module operation
- */
 {
-    //Required. Inputs the module expects.
     "inputs": [
-        //e.g.
-        /*
-        {
+         {
+            "id": "to",
+            "title":"To",
+            "type":"string"
+        }, {
             "id": "from",
             "title":"From",
             "type":"string"
+        }, {
+            "id": "html",
+            "title":"HTML body",
+            "type":"string"
+        }, {
+            "id": "text",
+            "title":"Text body",
+            "type":"string"
+        }, {
+            "id": "subject",
+            "title":"Subject",
+            "type":"string"
+        }, {
+            "id": "cc",
+            "title":"CC",
+            "type":"string"
         }
-        */
-    ],
-    //Required. Outputs the module emits.
-    "outputs": [
-      //e.g.
-      /*
-        {
-            "id": "from",
-            "title":"From",
-            "type":"array"
+        }, {
+            "id": "bcc",
+            "title":"BCC",
+            "type":"string"
         }
-      */
     ],
-    "title": "dexter-mailer" /* Required.A display name for the module */
+    "outputs": [],
+    "title": "Dexter Emailer"
 }
