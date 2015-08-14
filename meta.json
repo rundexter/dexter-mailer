@@ -24,7 +24,6 @@
             "id": "cc",
             "title":"CC",
             "type":"string"
-        }
         }, {
             "id": "bcc",
             "title":"BCC",
