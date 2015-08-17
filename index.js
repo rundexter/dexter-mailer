@@ -17,6 +17,7 @@ module.exports = {
             , api_key = dexter.user('profile').api_key
             , url     = dexter.url('home')+'api/smtp/?api_key='+api_key
             , restler = require('restler')
+            , mailData
             ;
         if(!api_key) {
             return this.fail('No API key provided');
@@ -39,7 +40,7 @@ module.exports = {
         cc = step.input('cc', null);
         bcc = step.input('bcc', null);
 
-        restler.post(url, {
+        mailData = {
             data: {
                 to: to
                 , from: from
@@ -52,7 +53,10 @@ module.exports = {
             , headers: {
                 'X-Authorization': api_key
             }
-        }).on('complete', function(result, response) {
+        };
+
+        console.log(mailData);
+        restler.post(url, mailData).on('complete', function(result, response) {
             if(result instanceof Error) return this.fail(result);
             return response.statusCode == 200 
                 ? this.complete({ noop: true })
