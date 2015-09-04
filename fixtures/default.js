@@ -50,15 +50,15 @@ module.exports = _.merge({
         local_test_step: {
             input: {
                 //http://mailinator.com/inbox.jsp?to=dextertest
-                to: 'dextertest@mailinator.com'
-                , from: 'Dexter Test Fixture <code@rundexter.com>'
-                , subject: 'dexter-mailer Fixture Test'
-                , text: 'This is a test email'
-                , html: '<h3>Test</h3><p>This is a <em>test</em> email.</p>'
+                to: ['dextertest@mailinator.com']
+                , from: ['Dexter Test Fixture <code@rundexter.com>']
+                , subject: ['dexter-mailer Fixture Test']
+                , text: ['This is a test email']
+                , html: ['<h3>Test</h3><p>This is a <em>test</em> email.</p>']
                 //http://mailinator.com/inbox.jsp?to=dextertestcc
-                , cc: 'dextertestcc@mailinator.com'
+                , cc: ['dextertestcc@mailinator.com']
                 //http://mailinator.com/inbox.jsp?to=dextertestbcc
-                , bcc: 'dextertestbcc@mailinator.com'
+                , bcc: ['dextertestbcc@mailinator.com']
             }
         }
     }

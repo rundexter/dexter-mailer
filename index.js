@@ -13,28 +13,31 @@ module.exports = {
      * @param {WFDataParser} dexter Container for all data used in this workflow.
      */
     , run: function(step, dexter) {
-        var to, from, subject, bodyText, bodyHtml, cc, bcc
-            , api_key = dexter.user('profile').api_key
+            var api_key = dexter.user('profile').api_key
             , url     = dexter.url('home')+'api/smtp/?api_key='+api_key
             , restler = require('restler')
+            , to = step.input('to')
+            , from = step.input('from')
+            , subject = step.input('subject')
+            , bodyText = step.input('text')
+            , bodyHtml = step.input('html')
+            , cc = step.input('cc')
+            , bcc = step.input('bcc')
             , mailData
             ;
         if(!api_key) {
             return this.fail('No API key provided');
         }
-        if((to = step.input('to', null)) === null) {
-            return this.fail('"to" field is required');
+        if(to.length === 0) {
+            return this.fail('At least one "to" field is required');
         }
-        if((from = step.input('from', null)) === null) {
+        if(!from.first()) {
             return this.fail('"from" field is required');
         }
-        if((subject = step.input('subject', null)) === null) {
+        if(!subject.first()) {
             return this.fail('"subject" field is required');
         }
-        if(
-            (bodyText = step.input('text', null)) === null
-            && (bodyHtml = step.input('html', null)) === null
-        ) {
+        if(!bodyText.length && !bodyHtml.length) {
            return this.fail('Either "text" (for a text-based email), "html" (for an html-based email), or both are required');
         } 
         cc = step.input('cc', null);
@@ -42,20 +45,19 @@ module.exports = {
 
         mailData = {
             data: {
-                to: to
-                , from: from
-                , subject: subject
-                , text: bodyText
-                , html: bodyHtml
-                , cc: cc
-                , bcc: bcc
+                to: to.toArray().join(',')
+                , from: from.first()
+                , subject: subject.first()
+                , text: bodyText.toArray().join("\n")
+                , html: bodyHtml.toArray().join('<br>')
+                , cc: cc.toArray().join(',')
+                , bcc: bcc.toArray().join(',')
             }
             , headers: {
                 'X-Authorization': api_key
             }
         };
 
-        console.log(mailData);
         restler.post(url, mailData).on('complete', function(result, response) {
             if(result instanceof Error) return this.fail(result);
             return response.statusCode == 200 
