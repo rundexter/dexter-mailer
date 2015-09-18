@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "author": "Dexter",
+  "author": "Run Dexter, Inc.",
   "license": "ISC",
   "private": true,
   "dependencies": {
