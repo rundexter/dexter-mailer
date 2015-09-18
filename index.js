@@ -60,6 +60,7 @@ module.exports = {
 
         restler.post(url, mailData).on('complete', function(result, response) {
             if(result instanceof Error) return this.fail(result);
+            result = result || '(no result)';
             return response.statusCode == 200 
                 ? this.complete({ noop: true })
                 : this.fail({
