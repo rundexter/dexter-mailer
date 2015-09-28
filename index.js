@@ -1,3 +1,5 @@
+var restler  = require('restler');
+
 module.exports = {
     /**
      * This optional function is called every time before the module executes.  It can be safely removed if not needed.
@@ -13,18 +15,21 @@ module.exports = {
      * @param {WFDataParser} dexter Container for all data used in this workflow.
      */
     , run: function(step, dexter) {
-            var api_key = dexter.user('profile').api_key
-            , url     = dexter.url('home')+'api/smtp/?api_key='+api_key
-            , restler = require('restler')
-            , to = step.input('to')
-            , from = step.input('from')
-            , subject = step.input('subject')
-            , bodyText = step.input('text')
-            , bodyHtml = step.input('html')
-            , cc = step.input('cc')
-            , bcc = step.input('bcc')
-            , mailData
-            ;
+        var api_key  = dexter.user('profile').api_key
+          , app_name = dexter.app('name')
+          , url      = dexter.url('home')+'api/app/'+app_name+'/smtp/?api_key = '+api_key
+          , to       = step.input('to')
+          , from     = step.input('from')
+          , subject  = step.input('subject')
+          , bodyText = step.input('text')
+          , bodyHtml = step.input('html')
+          , cc       = step.input('cc')
+          , bcc      = step.input('bcc')
+          , mailData
+        ;
+        if(!app_name) {
+            return this.fail('app_name required');
+        }
         if(!api_key) {
             return this.fail('No API key provided');
         }
