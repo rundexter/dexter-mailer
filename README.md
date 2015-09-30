@@ -1,9 +1,10 @@
-# Dexter Mailed 
+# Dexter Mailer
 
-This [Dexter](http://rundexter.com) module  will fetch the latest 
-trends from [Twitter](https://dev.twitter.com/rest/reference/get/trends/place).
-It currently fetches global trends, though optional regional trends 
-might be added in the future.
+This [Dexter](http://rundexter.com) module will send an email containing configured data.
+
+You can send either text or HTML, but not both.
+
+If you pass multiple text or HTML records to this function, they'll be concatenated by newlines and sent as a single email to all recipients.
 
 # Configuring the Step
 
