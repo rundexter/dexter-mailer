@@ -19,12 +19,12 @@ module.exports = {
           , app_name = dexter.app('name')
           , url      = dexter.url('home')+'api/app/'+app_name+'/smtp/?api_key = '+api_key
           , to       = step.input('to')
-          , from     = step.input('from')
           , subject  = step.input('subject')
           , bodyText = step.input('text')
           , bodyHtml = step.input('html')
-          , cc       = step.input('cc')
-          , bcc      = step.input('bcc')
+          , cc       = step.input('cc', null)
+          , bcc      = step.input('bcc', null)
+          , reply_to = step.input('reply_to', null)
           , mailData
         ;
         if(!app_name) {
@@ -36,22 +36,17 @@ module.exports = {
         if(to.length === 0) {
             return this.fail('At least one "to" field is required');
         }
-        if(!from.first()) {
-            return this.fail('"from" field is required');
-        }
         if(!subject.first()) {
             return this.fail('"subject" field is required');
         }
         if(!bodyText.length && !bodyHtml.length) {
            return this.fail('Either "text" (for a text-based email), "html" (for an html-based email), or both are required');
         } 
-        cc = step.input('cc', null);
-        bcc = step.input('bcc', null);
 
         mailData = {
             data: {
                 to: to.toArray().join(',')
-                , from: from.first()
+                , reply_to: reply_to.first()
                 , subject: subject.first()
                 , text: bodyText.toArray().join("\n")
                 , html: bodyHtml.toArray().join('<br>')

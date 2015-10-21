@@ -13,7 +13,7 @@ If you pass multiple text or HTML records to this function, they'll be concatena
 |Parameter|Required|Multiple|Details|
 |---------|--------|--------|-------|
 |to | Yes | Yes | Either a valid email or a "Joe Example <joe@example.com>" string|
-|from | No | No | Who you'd like the email to be from|
+|reply_to | No | No | Who you'd like users to reply to|
 |subject | Yes | No | The subject of your email|
 |html | No | Yes | HTML content to email*|
 |text | No | Yes | Text content to email*|
