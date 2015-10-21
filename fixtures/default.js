@@ -13,6 +13,7 @@ module.exports = _.merge({
     }
     , workflow: {
         "id" : "local_test_workflow"
+        , "name": "dummy_sms"
         , "title": "Local test workflow"
         , "description": "A fixture workflow used to test a module"
     }
@@ -51,7 +52,7 @@ module.exports = _.merge({
             input: {
                 //http://mailinator.com/inbox.jsp?to=dextertest
                 to: ['dextertest@mailinator.com']
-                , from: ['Dexter Test Fixture <code@rundexter.com>']
+                , reply_to: ['Dexter Test Fixture <code@rundexter.com>']
                 , subject: ['dexter-mailer Fixture Test']
                 , text: ['This is a test email']
                 , html: ['<h3>Test</h3><p>This is a <em>test</em> email.</p>']
